@@ -1,7 +1,7 @@
 # importaciones
 import turtle
 import time
-
+import random
 
 # ===========================
 # Crear la ventana del juego
@@ -38,8 +38,8 @@ def crear_pelota():
     pelota.color("white")
     pelota.penup()
     pelota.goto(0, 0)
-    pelota.dx = 0.2  # velocidad en x
-    pelota.dy = -0.2  # velocidad en y
+    pelota.dx = 0.5  # velocidad en x
+    pelota.dy = -0.5  # velocidad en y
     return pelota
 
 # ===========================
@@ -80,6 +80,14 @@ def actualizar_marcador(marcador, score_a, score_b):
     marcador.write(f"Jugador A: {score_a}  Jugador B: {score_b}",
                     align="center",
                     font=("Courier", 24, "normal"))
+
+# ===========================
+# Resetear pelota con dirección aleatoria al anotar punto
+# ==========================    
+def resetear_pelota(pelota):
+    pelota.goto(0, 0)
+    pelota.dx *= random.choice([-1, 1])
+    pelota.dy *= random.choice([-1, 1])
 
 # ===========================
 # Función principal del juego
@@ -125,17 +133,18 @@ def main():
             pelota.sety(-290)
             pelota.dy *= -1
 
+        # Anotar puntos
         if pelota.xcor() > 390:
-            pelota.goto(0, 0)
-            pelota.dx *= -1
             score_a += 1
+            marcador.clear()
             actualizar_marcador(marcador, score_a, score_b)
+            resetear_pelota(pelota)
 
         if pelota.xcor() < -390:
-            pelota.goto(0, 0)
-            pelota.dx *= -1
             score_b += 1
+            marcador.clear()
             actualizar_marcador(marcador, score_a, score_b)
+            resetear_pelota(pelota)
 
         # Rebotar en las paletas
         if (pelota.xcor() > 340 and pelota.xcor() < 350) and (pelota.ycor() < paleta_b.ycor() + 50 and pelota.ycor() > paleta_b.ycor() - 50):
