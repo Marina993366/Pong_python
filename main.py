@@ -17,7 +17,6 @@ def crear_ventana():
 # ===========================
 # Crear las paletas
 # ===========================
-
 def crear_paleta(x, y):
     paleta = turtle.Turtle()
     paleta.speed(0)
@@ -38,8 +37,8 @@ def crear_pelota():
     pelota.color("white")
     pelota.penup()
     pelota.goto(0, 0)
-    pelota.dx = 0.3  # velocidad en x
-    pelota.dy = -0.3  # velocidad en y
+    pelota.dx = 1  # velocidad en x
+    pelota.dy = -1  # velocidad en y
     return pelota
 
 # ===========================
@@ -90,6 +89,27 @@ def resetear_pelota(pelota):
     pelota.dy = 1 * random.choice([-1, 1])
 
 # ===========================
+# Mostrar mensaje final
+# ===========================
+def mostrar_mensaje_final(mensaje):
+    texto = turtle.Turtle()
+    texto.hideturtle()
+    texto.color("white")
+    texto.penup()
+    texto.goto(0, 0)
+    texto.write(
+        mensaje,
+        align="center",
+        font=("Courier", 20, "normal")
+    )
+
+# ===========================
+# Salir del juego
+# ===========================
+def salir():
+    turtle.bye()
+
+# ===========================
 # Función principal del juego
 # ===========================
 def main():
@@ -99,23 +119,23 @@ def main():
     pelota = crear_pelota()
     marcador = crear_marcador()
 
-# ===========================    
-# Teclas para mover las paletas
-# ===========================
+    # Teclas para mover las paletas
     ventana.listen()
     ventana.onkeypress(lambda: mover_paleta_arriba(paleta_a), "w")
     ventana.onkeypress(lambda: mover_paleta_abajo(paleta_a), "s")
     ventana.onkeypress(lambda: mover_paleta_arriba(paleta_b), "Up")
     ventana.onkeypress(lambda: mover_paleta_abajo(paleta_b), "Down")
 
-# ===========================
-# Bucle principal del juego
-# ===========================
-
     # Marcador
     score_a = 0
     score_b = 0
 
+    # Puntaje maximo
+    puntaje_maximo = 5
+
+# ===========================
+# Bucle principal del juego
+# ===========================
     while True:
         ventana.update()
         time.sleep(0.01)
@@ -152,6 +172,25 @@ def main():
 
         if (pelota.xcor() < -340 and pelota.xcor() > -350) and (pelota.ycor() < paleta_a.ycor() + 50 and pelota.ycor() > paleta_a.ycor() - 50):
             pelota.dx *= -1.5
+
+        # Verificar si alguien ganó
+        if score_a >= puntaje_maximo:
+            marcador.clear()
+            marcador.write("Jugador A gana!",
+                            align="center",
+                            font=("Courier", 36, "normal"))
+            break
+        if score_b >= puntaje_maximo:
+            marcador.clear()
+            marcador.write("Jugador B gana!",
+                            align="center",
+                            font=("Courier", 36, "normal"))
+            break
+    
+    mostrar_mensaje_final("Fin del juego\nPresioná R para volver a jugar\nPresioná Q para salir")
+    ventana.onkeypress(main, "r")
+    ventana.onkeypress(salir, "q")
+    ventana.mainloop()
 
 if __name__ == "__main__":
     main()
