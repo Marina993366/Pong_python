@@ -22,7 +22,9 @@ def main():
     # Teclas para mover las paletas
     ventana.listen()
     ventana.onkeypress(lambda: mover_paleta_arriba(paleta_a), "w")
+    ventana.onkeypress(lambda: mover_paleta_arriba(paleta_a), "W")
     ventana.onkeypress(lambda: mover_paleta_abajo(paleta_a), "s")
+    ventana.onkeypress(lambda: mover_paleta_abajo(paleta_a), "S")
     ventana.onkeypress(lambda: mover_paleta_arriba(paleta_b), "Up")
     ventana.onkeypress(lambda: mover_paleta_abajo(paleta_b), "Down")
 
@@ -89,7 +91,9 @@ def main():
     
     mostrar_mensaje_final("Fin del juego\nPresioná R para volver a jugar\nPresioná Q para salir")
     ventana.onkeypress(main, "r")
+    ventana.onkeypress(main, "R")
     ventana.onkeypress(salir, "q")
+    ventana.onkeypress(salir, "Q")
     ventana.mainloop()
 
 if __name__ == "__main__":
