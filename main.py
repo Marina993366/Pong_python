@@ -38,8 +38,8 @@ def crear_pelota():
     pelota.color("white")
     pelota.penup()
     pelota.goto(0, 0)
-    pelota.dx = 0.5  # velocidad en x
-    pelota.dy = -0.5  # velocidad en y
+    pelota.dx = 0.3  # velocidad en x
+    pelota.dy = -0.3  # velocidad en y
     return pelota
 
 # ===========================
@@ -86,8 +86,8 @@ def actualizar_marcador(marcador, score_a, score_b):
 # ==========================    
 def resetear_pelota(pelota):
     pelota.goto(0, 0)
-    pelota.dx *= random.choice([-1, 1])
-    pelota.dy *= random.choice([-1, 1])
+    pelota.dx = 1 * random.choice([-1, 1])
+    pelota.dy = 1 * random.choice([-1, 1])
 
 # ===========================
 # Función principal del juego
@@ -148,10 +148,10 @@ def main():
 
         # Rebotar en las paletas
         if (pelota.xcor() > 340 and pelota.xcor() < 350) and (pelota.ycor() < paleta_b.ycor() + 50 and pelota.ycor() > paleta_b.ycor() - 50):
-            pelota.dx *= -1
+            pelota.dx *= -1.5
 
         if (pelota.xcor() < -340 and pelota.xcor() > -350) and (pelota.ycor() < paleta_a.ycor() + 50 and pelota.ycor() > paleta_a.ycor() - 50):
-            pelota.dx *= -1
+            pelota.dx *= -1.5
 
 if __name__ == "__main__":
     main()
