@@ -7,7 +7,7 @@ Forma parte de mi proceso de aprendizaje en desarrollo y está enfocado en pract
 
 ## 🎮 Captura del juego
 
-![Pong en Python](screenshot/pong.png)
+![Pong en Python](screenshot/Pong.png)
 
 ---
 
