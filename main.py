@@ -1,113 +1,13 @@
 # importaciones
-import turtle
 import time
-import random
-
-# ===========================
-# Crear la ventana del juego
-# ===========================
-def crear_ventana():
-    ventana = turtle.Screen()
-    ventana.title("Pong - Python")
-    ventana.bgcolor("black")
-    ventana.setup(width=800, height=600)
-    ventana.tracer(0)  # controlamos cuándo se actualiza la pantalla
-    return ventana
-
-# ===========================
-# Crear las paletas
-# ===========================
-def crear_paleta(x, y):
-    paleta = turtle.Turtle()
-    paleta.speed(0)
-    paleta.shape("square")
-    paleta.color("white")
-    paleta.shapesize(stretch_wid=5, stretch_len=1)
-    paleta.penup()
-    paleta.goto(x, y)
-    return paleta
-
-# ===========================
-# Crear la pelota
-# ===========================
-def crear_pelota():
-    pelota = turtle.Turtle()
-    pelota.speed(0)
-    pelota.shape("square")
-    pelota.color("white")
-    pelota.penup()
-    pelota.goto(0, 0)
-    pelota.dx = 1  # velocidad en x
-    pelota.dy = -1  # velocidad en y
-    return pelota
-
-# ===========================
-# Mover las paletas
-# ===========================
-def mover_paleta_arriba(paleta):
-    if paleta.ycor() < 250:
-        y = paleta.ycor()
-        y += 30
-        paleta.sety(y)
-
-def mover_paleta_abajo(paleta):
-    if paleta.ycor() > -250:
-        y = paleta.ycor()
-        y -= 30
-        paleta.sety(y)
-
-# ===========================
-# Crear el marcador
-# ===========================
-def crear_marcador():
-    marcador = turtle.Turtle()
-    marcador.speed(0)
-    marcador.color("white")
-    marcador.penup()
-    marcador.hideturtle()
-    marcador.goto(0, 260)
-    marcador.write("Jugador A: 0  Jugador B: 0",
-                    align="center",
-                    font=("Courier", 24, "normal"))
-    return marcador
-
-# ===========================
-# Actualizar el marcador
-# ===========================
-def actualizar_marcador(marcador, score_a, score_b):
-    marcador.clear()
-    marcador.write(f"Jugador A: {score_a}  Jugador B: {score_b}",
-                    align="center",
-                    font=("Courier", 24, "normal"))
-
-# ===========================
-# Resetear pelota con dirección aleatoria al anotar punto
-# ==========================    
-def resetear_pelota(pelota):
-    pelota.goto(0, 0)
-    pelota.dx = 1 * random.choice([-1, 1])
-    pelota.dy = 1 * random.choice([-1, 1])
-
-# ===========================
-# Mostrar mensaje final
-# ===========================
-def mostrar_mensaje_final(mensaje):
-    texto = turtle.Turtle()
-    texto.hideturtle()
-    texto.color("white")
-    texto.penup()
-    texto.goto(0, 0)
-    texto.write(
-        mensaje,
-        align="center",
-        font=("Courier", 20, "normal")
-    )
-
-# ===========================
-# Salir del juego
-# ===========================
-def salir():
-    turtle.bye()
+from game_objects import (
+    crear_ventana, crear_paleta, crear_pelota, crear_marcador
+)
+from game_utils import (
+    mover_paleta_arriba, mover_paleta_abajo,
+    actualizar_marcador, resetear_pelota,
+    mostrar_mensaje_final, salir
+)
 
 # ===========================
 # Función principal del juego
