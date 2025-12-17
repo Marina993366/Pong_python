@@ -46,14 +46,16 @@ def crear_pelota():
 # Mover las paletas
 # ===========================
 def mover_paleta_arriba(paleta):
-    y = paleta.ycor()
-    y += 30
-    paleta.sety(y)
+    if paleta.ycor() < 250:
+        y = paleta.ycor()
+        y += 30
+        paleta.sety(y)
 
 def mover_paleta_abajo(paleta):
-    y = paleta.ycor()
-    y -= 30
-    paleta.sety(y)
+    if paleta.ycor() > -250:
+        y = paleta.ycor()
+        y -= 30
+        paleta.sety(y)
 
 # ===========================
 # Crear el marcador
