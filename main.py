@@ -38,8 +38,8 @@ def crear_pelota():
     pelota.color("white")
     pelota.penup()
     pelota.goto(0, 0)
-    pelota.dx = 0.1  # velocidad en x
-    pelota.dy = -0.1  # velocidad en y
+    pelota.dx = 0.2  # velocidad en x
+    pelota.dy = -0.2  # velocidad en y
     return pelota
 
 # ===========================
@@ -56,6 +56,30 @@ def mover_paleta_abajo(paleta):
     paleta.sety(y)
 
 # ===========================
+# Crear el marcador
+# ===========================
+def crear_marcador():
+    marcador = turtle.Turtle()
+    marcador.speed(0)
+    marcador.color("white")
+    marcador.penup()
+    marcador.hideturtle()
+    marcador.goto(0, 260)
+    marcador.write("Jugador A: 0  Jugador B: 0",
+                    align="center",
+                    font=("Courier", 24, "normal"))
+    return marcador
+
+# ===========================
+# Actualizar el marcador
+# ===========================
+def actualizar_marcador(marcador, score_a, score_b):
+    marcador.clear()
+    marcador.write(f"Jugador A: {score_a}  Jugador B: {score_b}",
+                    align="center",
+                    font=("Courier", 24, "normal"))
+
+# ===========================
 # Función principal del juego
 # ===========================
 def main():
@@ -63,6 +87,7 @@ def main():
     paleta_a = crear_paleta(-350, 0)
     paleta_b = crear_paleta(350, 0)
     pelota = crear_pelota()
+    marcador = crear_marcador()
 
 # ===========================    
 # Teclas para mover las paletas
@@ -76,6 +101,11 @@ def main():
 # ===========================
 # Bucle principal del juego
 # ===========================
+
+    # Marcador
+    score_a = 0
+    score_b = 0
+
     while True:
         ventana.update()
         time.sleep(0.01)
@@ -96,10 +126,14 @@ def main():
         if pelota.xcor() > 390:
             pelota.goto(0, 0)
             pelota.dx *= -1
+            score_a += 1
+            actualizar_marcador(marcador, score_a, score_b)
 
         if pelota.xcor() < -390:
             pelota.goto(0, 0)
             pelota.dx *= -1
+            score_b += 1
+            actualizar_marcador(marcador, score_a, score_b)
 
         # Rebotar en las paletas
         if (pelota.xcor() > 340 and pelota.xcor() < 350) and (pelota.ycor() < paleta_b.ycor() + 50 and pelota.ycor() > paleta_b.ycor() - 50):
